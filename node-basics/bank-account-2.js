@@ -11,13 +11,15 @@ function createAccount(account){
 };
 
 function getAccount(username){
+	var matchedAccount;
+	// remember to use diff. var here not var 'account'.
+	// since account is the part of the loop iteration.
 	accounts.forEach(function(account){
 		if(account.username === username){
-			return account;		
-		} else {
-			return -1;
+			matchedAccount = account;		
 		}
 	});
+	return matchedAccount;
 };
 
 var awdeshAccount = createAccount({
@@ -27,6 +29,8 @@ var awdeshAccount = createAccount({
 
 console.log("getting account for user..")
 console.log(getAccount('Awdesh'));
+
+var matchedAccount = getAccount('Awdesh');
 
 function deposit(account, amount){
 	account.balance += amount;
