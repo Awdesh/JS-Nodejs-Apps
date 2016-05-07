@@ -27,10 +27,25 @@ var awdeshAccount = createAccount({
 	balance: 100000
 });
 
-console.log("getting account for user..")
-console.log(getAccount('Awdesh'));
 
-var matchedAccount = getAccount('Awdesh');
+var NibhaAccount = createAccount({
+	username: 'Nibha',
+	balance: 50000
+});
+
+var HoneyAccount = createAccount({
+	username: 'yoyo',
+	balance: 30000
+});
+
+var len = accounts.length;
+accounts.forEach(function(account) {
+   if(len === 0){
+   	  return;
+   };
+   console.log(account);
+   len--; 
+});
 
 function deposit(account, amount){
 	account.balance += amount;
