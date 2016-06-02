@@ -1,16 +1,14 @@
 {
-  "name": "password-manager",
+  "name": "practice",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "closures.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Awdesh Sharma",
+  "author": "",
   "license": "ISC",
   "dependencies": {
-    "crypto-js": "^3.1.5",
-    "node-persist": "0.0.6",
-    "yargs": "^3.15.0"
+    "yargs": "^4.7.0"
   }
 }
