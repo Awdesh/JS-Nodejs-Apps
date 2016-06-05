@@ -27,6 +27,7 @@ function areAnagrams(s1, s2){
             if(ht[s2[index2]] === 0){
                 delete ht[[s2[index2]]];
             }
+
         } else {
             return false;
         }
