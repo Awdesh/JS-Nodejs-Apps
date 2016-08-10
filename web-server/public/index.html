@@ -36,6 +36,186 @@
 
   <body>
 
+  	<!-- <form method="post" action="/login">
+	  	<input type="test" name="username">
+	  	<input type="test" name="password">
+	  	<input type="Submit">
+	 </form> -->
+
+   <div class="top-account-nav">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-right pad-zero-rg">
+                    <a href="/developer_login/sign_in" class="neutral small">LOG IN</a>
+                    <span>/</span>
+                    <a href="/sign_up" class="neutral small">SIGN UP</a>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="enterprise-logo-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 hidden-sm hidden-xs enterprise-logo-comp pad-zero-lf" style="position: relative">
+                <a href="/">
+                    <div class="sub-logo-dev">Developer</div>
+                    <div class="subscript-logo-dev">Beta</div>
+                    <img style="height:28px" src="/images/14-samplelogo.jpg" alt="Logo temp 6a9155c3d5496685524a9971e647a830313b9063222889dc32fb1cfe1aad619c">
+                </a>
+            </div>
+            <div class="col-xs-12 text-center enterprise-logo-comp pad-zero-lf hidden-lg hidden-md">
+                <a href="/developer/dashboard">
+                    <img style="height:35px" src="/images/14-samplelogo.jpg" alt="Logo temp 6a9155c3d5496685524a9971e647a830313b9063222889dc32fb1cfe1aad619c">
+                </a>
+            </div>
+            <div class="col-lg-8 col-md-8 enterprise-logo-comp text-right pad-zero-rg hidden-sm hidden-xs">
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="container hidden-lg hidden-md"></div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            url: '/developer/inbox_new_count',
+            success: function (data) {
+                if (data != '') {
+                    var totalNewMessages = parseInt(data);
+                    if (totalNewMessages > 0) {
+                        $('#new_inbox').html(totalNewMessages + ' New').show();
+                    }
+                }
+            }
+        })
+    });
+</script>
+
+   <div class="dashboard-container">
+   <div class="container">
+    <div class="row page-title-sec">
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 heading-right pad-zero-rg">
+          <span>Already have an account?&nbsp;</span>
+          <a href="/developer_login/sign_in" class="shade-yellow" id="sign_in">Login Now</a>
+      </div>   
+    </div>
+    <div class="row dev-profile-sec-low-margin">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="row dev-signup-sub-sec">
+                    <div class="col-lg-12 col-xs-12 section-title text-center">Sign up with Social Media</div>
+                </div>
+                <div class="row dev-signup-sub-sec form-group">
+                    <div class="col-lg-12 text-center">
+                        <a href="/facebook/authorize" id="fb_sign_up"><img src="/images/signin_facebook_v2-3d96840379376e600bfec55e8b0d2030c01537650b71ba4d472a0c452c5f6501.png" alt="Signin facebook v2 3d96840379376e600bfec55e8b0d2030c01537650b71ba4d472a0c452c5f6501"></a>
+                    </div>
+                </div>
+                <div class="row dev-signup-sub-sec form-group">
+                    <div class="col-lg-12 text-center">
+                        <a href="/google/authorize" id="goog_sign_up"><img src="/images/signin_google_v2-9bd3fe1cfc7f76c52f09c72116ebbc144dcdafe7f15e600b76e611a588c279e1.png" alt="Signin google v2 9bd3fe1cfc7f76c52f09c72116ebbc144dcdafe7f15e600b76e611a588c279e1"></a>
+                    </div>
+                </div>
+                <div class="row dev-signup-sub-sec form-group">
+                    <div class="col-lg-12 text-center">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="row dev-signup-sub-sec">
+                    <div class="col-lg-12 col-xs-12 section-title text-center">Sign up with Email</div>
+                </div>
+                <div class="row dev-signup-sub-sec sec-vertical form-group">
+                    <div class="col-lg-12 text-center">
+                        <input class="form-control" placeholder="NAME" tabindex="1" id="developer_name">
+                    </div>
+                </div>
+                <div class="row dev-signup-sub-sec sec-vertical form-group">
+                    <div class="col-lg-12 text-center">
+                        <input class="form-control" placeholder="EMAIL" tabindex="2" type="email" id="developer_email">
+                    </div>
+                </div>
+                <div class="row dev-signup-sub-sec sec-vertical form-group">
+                    <div class="col-lg-12 text-center">
+                        <input class="form-control" placeholder="PASSWORD" tabindex="3" type="password" id="developer_password">
+                    </div>
+                </div>
+                <div class="row dev-signup-sub-sec  sec-vertical form-group">
+                    <div class="col-lg-12 text-center">
+                        <span class="glyphicon glyphicon-check glyph-sm text-info" id="check_news_letter"></span>
+                        <span>Sign me up for newsletter</span>
+                    </div>
+                </div>
+                <div class="row dev-signup-sub-sec  sec-vertical form-group">
+                    <div class="col-lg-12 text-center">
+                        <form action="/create_account" method="post" id="create_account_form">
+                            <input type="hidden" id="developer_name_data" name="name">
+                            <input type="hidden" id="developer_email_data" name="email">
+                            <input type="hidden" id="developer_password_data" name="password">
+                            <input type="hidden" id="developer_newsletter_signup_data" name="newsletter_signup">
+                            <input type="hidden" id="redirect" name="redirect" value="">
+                            <button type="submit" class="btn btn-info edr-btn-md" id="create_account_action" tabindex="4">
+                                CREATE ACCOUNT
+                            </button>
+                            <div class="spinner-small wait" id="create_account_action_wait" style="">
+                              <div class="r1"></div>
+                              <div class="r2"></div>
+                              <div class="r3"></div>
+                              <div class="r4"></div>
+                              <div class="r5"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6"></div>
+            <div class="col-lg-6 text-center">
+                <span>By signing up you agree to our&nbsp;</span>
+                <a href="/privacy">Privacy Policy</a>
+            </div>
+        </div>
+      </div>
+   </div>
+
+   <script type="text/javascript">
+    $(document).ready(function () {
+
+        if (getURLParameter('redirect') != 'null') {
+            var redirect = getURLParameter('redirect');
+            $('#redirect').val(redirect);
+            $('#sign_in').attr('href', '/developer_login/sign_in?redirect=' + redirect);
+            $('#fb_sign_up').attr('href', '/facebook/authorize?redirect=' + redirect);
+            $('#goog_sign_up').attr('href', '/google/authorize?redirect=' + redirect);
+        }
+
+        $('#create_account_action').click(function () {
+            $(this).hide();
+            $('#invalid-account-msg').hide();
+            $('#create_account_action_wait').show();
+            $('#developer_name_data').val($('#developer_name').val());
+            $('#developer_email_data').val($('#developer_email').val());
+            $('#developer_password_data').val($('#developer_password').val());
+            $('#developer_newsletter_signup_data').val($('#check_news_letter').hasClass('glyphicon-check'));
+            $('#create_account_form').submit();
+
+        });
+
+        $('#create_sibling').height($('#invalid-account-msg').parent().height());
+
+        $('#check_news_letter').click(function () {
+            if ($(this).hasClass('glyphicon-unchecked')) {
+                $(this).removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+            } else {
+                $(this).removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+            }
+        });
+
+    });
+
+</script>
+
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -56,14 +236,14 @@
       </div>
     </nav>
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <div class="container">
+    <!-- <!-- Main jumbotron for a primary marketing message or call to action -->
+    <!-- <div class="jumbotron">
+      <div class="container"> -->
         <!--<h1>Hello, world!<br> My goal is to learn and <br> become an expert.</br></h1> -->
-        <p><!-- Welcome to rate my recruiter website. Let's take time and help each other by sharing recruiting process.. --></p>
+        <!-- <p>Welcome to rate my recruiter website. Let's take time and help each other by sharing recruiting process..</p>
         <p><a class="btn btn-danger btn-lg" href="#" role="button">Learn more &raquo;</a></p>
       </div>
-    </div>
+    </div> -->
 
     <div class="container homepage">
       <h2> Get Involved</h2>
@@ -114,5 +294,6 @@
     <script src="../../dist/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="/js/app.js"></script>
   </body>
 </html>
