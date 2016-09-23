@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html ng-app="question">
+  <head>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+  </head>
+  <body ng-controller="DataController as data">
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <section ng-init="tab=3">
+      <ul class="nav nav-pills">
+        <li ng-class="{active:tab === 1}">
+          <a href ng-click="tab = 1">Description</a>
+        </li>
+        <li ng-class="{active:tab === 2}">
+          <a href ng-click="tab = 2">Questions</a>
+        </li>
+        <li ng-class="{active:tab === 3}">
+          <a href ng-click="tab = 3">Answers</a>
+        </li>
+      </ul>
+      {{tab}}
+    </section>
+    <ul class="list-group">
+      <li class="list-group-item" ng-repeat="question in data.questions">
+        <div class="answerPanel" ng-show="tab===3">
+          <blockquote ng-repeat="answer in question.answers">
+            <b> Stars: {{answer.stars}} </b>
+            {{answer.body}}
+            <cite>by: {{answer.author}}</cite>
+          </blockquote>
+          <form name="answerForm" ng-controller="AnswerController as answerCtrl"
+                                  ng-submit="answerForm.$valid && answerCtrl.addAnswer(question)" novalidate>
+            <blockquote>
+              <b> Stars: {{answerCtrl.answer.stars}} </b>
+              {{answerCtrl.answer.body}}
+              <cite>by: {{answerCtrl.answer.author}}</cite>
+            </blockquote>
+
+            <select ng-model="answerCtrl.answer.stars" required>
+              <option value="1">1 star</option>
+              <option value="2">2 star</option>
+              <option value="3">3 star</option>
+              <option value="4">4 star</option>
+            </select>
+            <textarea ng-model="answerCtrl.answer.body" required></textarea>
+            <label>by:</label>
+            <input ng-model="answerCtrl.answer.author" type="email" required/>
+            <div> answerForm is {{answerForm.$valid}}</div>
+            <input type="submit" value="Submit"/>
+        </form>
+        </div>
+        <div class="questionPanel" ng-show="tab===2">
+          <blockquote>
+            <b><h1> Title: {{question.title}} </h1></b>
+            {{question.text}}<br/>
+            Answered-: {{question.answered}}<br/>
+            <cite>by: {{question.author}}</cite>
+          </blockquote>
+        </div>
+      </li>
+    </ul>
+  </body>
+
+</html>
