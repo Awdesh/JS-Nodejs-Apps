@@ -1,0 +1,23 @@
+{
+  "name": "todo-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/test.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "crypto-js": "^3.1.5",
+    "express": "^4.13.2",
+    "jsonwebtoken": "^5.0.5",
+    "path": "^0.12.7",
+    "sequelize": "^3.5.1",
+    "sqlite3": "^3.1.4",
+    "underscore": "^1.8.3",
+    "mocha": "2.2.4",
+    "superagent": "1.2.0"
+  }
+}

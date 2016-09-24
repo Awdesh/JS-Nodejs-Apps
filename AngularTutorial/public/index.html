@@ -3,6 +3,7 @@
   <head>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <title>Angular tutorial</title>
   </head>
   <body ng-controller="DataController as data">
     <script type="text/javascript" src="js/angular.min.js"></script>
@@ -19,9 +20,17 @@
           <a href ng-click="tab = 3">Answers</a>
         </li>
       </ul>
-      {{tab}}
     </section>
     <ul class="list-group">
+      <div class="questionPanel" ng-show="tab===2">
+        <blockquote>
+          <b><h1> Title: {{question.title}} </h1></b>
+          {{question.text}}<br/>
+          Answered-: {{question.answered}}<br/>
+          <cite>by: {{question.author}}</cite>
+        </blockquote>
+      </div>
+
       <li class="list-group-item" ng-repeat="question in data.questions">
         <div class="answerPanel" ng-show="tab===3">
           <blockquote ng-repeat="answer in question.answers">
@@ -43,21 +52,14 @@
               <option value="3">3 star</option>
               <option value="4">4 star</option>
             </select>
-            <textarea ng-model="answerCtrl.answer.body" required></textarea>
+            <textarea ng-model="answerCtrl.answer.body" required></textarea><br/>
             <label>by:</label>
-            <input ng-model="answerCtrl.answer.author" type="email" required/>
-            <div> answerForm is {{answerForm.$valid}}</div>
+            <input ng-model="answerCtrl.answer.author" class="ng-dirty ng-valid" type="email" required/>
+            <!-- <div> answerForm is {{answerForm.$valid}}</div> -->
             <input type="submit" value="Submit"/>
         </form>
         </div>
-        <div class="questionPanel" ng-show="tab===2">
-          <blockquote>
-            <b><h1> Title: {{question.title}} </h1></b>
-            {{question.text}}<br/>
-            Answered-: {{question.answered}}<br/>
-            <cite>by: {{question.author}}</cite>
-          </blockquote>
-        </div>
+
       </li>
     </ul>
   </body>
