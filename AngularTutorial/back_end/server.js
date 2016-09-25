@@ -17,121 +17,47 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../public'));
 console.log(path.resolve(__dirname, '../public/index.html'));
 console.log("port is" + PORT);
+
+app.all("*", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
+  return next();
+});
+
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function(req, res) {
   res.sendFile(path.resolve(__dirname, '../public/index.html'));
 });
 
-app.get("/activities", function(req, res) {
-  console.log(PORT);
-  var queryParams = req.query;
-  console.log(queryParams);
+app.get("/questions", function(req, res) {
   var where = {};
-
-  if (queryParams.hasOwnProperty('personalText')) {
-    where.personalText = {
-      $like: '%' + queryParams.personalText + '%'
-    };
-  } else if (queryParams.hasOwnProperty('professionalText')) {
-    where.professionalText = {
-      $like: '%' + queryParams.professionalText + '%'
-    };
-  } else if (queryParams.hasOwnProperty('otherText')) {
-    where.otherText = {
-      $like: '%' + queryParams.otherText + '%'
-    };
-  }
-  console.log('reached here');
-  db.activities.findAll({
+  db.questions.findAll({
     where: where
-  }).then(function(activities) {
-    console.log(activities);
-    res.json(activities);
+  }).then(function(questions) {
+    res.json(questions);
   }), function(e) {
     res.status(500).send();
-  // process.exit(1);
   };
 });
 
-app.get("/weekactivities", function(req, res) {
-  // var days = req.query;
-  var date = new Date();
-  var last = new Date(date.getTime() - 7 * 24 * 60 * 60 * 1000);
-  console.log(last);
 
-  db.activities.findAll({
-    where: {
-      createdAt: {
-        $gt: last
-      }
-    }
-  }).then(function(activities) {
-    res.json(activities);
-  }),
-  function(e) {
-    res.status(500).send();
-  };
-});
+app.post("/askQuestion", function(req, res) {
+  console.log('posting the question' + req.body);
 
-app.get("/monthactivities", function(req, res) {
-  // var days = req.query;
-  var date = new Date();
-  var last = new Date(date.getTime() - 30 * 24 * 60 * 60 * 1000);
-
-  db.activities.findAll({
-    where: {
-      createdAt: {
-        $gt: last
-      }
-    }
-  }).then(function(activities) {
-    res.json(activities);
-  }),
-  function(e) {
-    res.status(500).send();
-  };
-});
-
-app.get("/todayactivities", function(req, res) {
-  // var days = req.query;
-  var date = new Date();
-  var n = date.getDate();
-  console.log('calling todays activities');
-  console.log(date);
-  console.log(n);
-
-  db.activities.findAll({
-    where: {
-      createdAt: {
-        $eq: n
-      }
-    }
-  }).then(function(activities) {
-    res.json(activities);
-  }),
-  function(e) {
-    res.status(500).send();
-  };
-});
-
-// could also use the POST body instead of query string: http://expressjs.com/en/api.html#req.body
-app.post("/activities", function(req, res) {
-  var body = _.pick(req.body, 'personalText', 'professionalText', 'otherText');
-  // var body = req.body;
-  console.log("body is-:" + body);
-  db.activities.create(body).then(function(activities) {
-    if (activities)
-      return res.json(activities.toJSON());
+  var body = _.pick(req.body, 'title', 'body', 'tags');
+  console.log(body);
+  db.questions.create(body).then(function(questions) {
+    if (questions)
+      return res.json(questions.toJSON());
     else
       return res.status(404).send();
   }, function(e) {
-    return res.status(404).json(e);
+    return res.status(404).send(e);
   });
 });
 
-db.sequelize.sync({
-  force: true
-}).then(function() {
+db.sequelize.sync().then(function() {
   app.listen(PORT, function() {
     console.log('Express listening on port ' + PORT);
   });
