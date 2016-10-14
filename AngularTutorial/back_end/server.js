@@ -18,6 +18,7 @@ app.use(express.static(__dirname + '/../public'));
 console.log(path.resolve(__dirname, '../public/index.html'));
 console.log("port is" + PORT);
 
+// Allow CORS.
 app.all("*", function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
@@ -30,11 +31,12 @@ app.get("/", function(req, res) {
   res.sendFile(path.resolve(__dirname, '../public/index.html'));
 });
 
-app.get("/questions", function(req, res) {
+app.get("/api/v1/getQuestions", function(req, res) {
   var where = {};
-  db.questions.findAll({
+  db.question.findAll({
     where: where
   }).then(function(questions) {
+    console.log(questions.title);
     res.json(questions);
   }), function(e) {
     res.status(500).send();
@@ -42,14 +44,14 @@ app.get("/questions", function(req, res) {
 });
 
 
-app.post("/askQuestion", function(req, res) {
+app.post("/api/v1/askQuestion", function(req, res) {
   console.log('posting the question' + req.body);
 
   var body = _.pick(req.body, 'title', 'body', 'tags');
   console.log(body);
-  db.questions.create(body).then(function(questions) {
-    if (questions)
-      return res.json(questions.toJSON());
+  db.question.create(body).then(function(question) {
+    if (question)
+      return res.json(question.toJSON());
     else
       return res.status(404).send();
   }, function(e) {
@@ -57,7 +59,36 @@ app.post("/askQuestion", function(req, res) {
   });
 });
 
-db.sequelize.sync().then(function() {
+app.post("/api/v1/postAnswer", function(req, res) {
+  console.log('posting the answer' + req.body);
+
+  db.answer.create(req.body).then(function(answer) {
+    if (answer)
+      return res.json(answer.toJSON());
+    else
+      return res.status(404).send();
+  }, function(e) {
+    return res.status(404).send(e);
+  });
+});
+
+app.get("/api/v1/getAnswerOfQuestion", function(req, res) {
+  var where = {};
+  var queryParams = req.query;
+  console.log(queryParams);
+  where.questionId = queryParams.id;
+  db.answer.findAll({
+    where: where
+  }).then(function(answers) {
+    res.json(answers);
+  }), function(e) {
+    res.status(500).send();
+  };
+});
+
+db.sequelize.sync({
+  force: true
+}).then(function() {
   app.listen(PORT, function() {
     console.log('Express listening on port ' + PORT);
   });

@@ -6,7 +6,7 @@
     var blog = this;
     blog.questions = [];
 
-    $http.get('/questions').success(function(data) {
+    $http.get('/api/v1/getQuestions').success(function(data) {
       blog.questions = data;
       console.log('data is' + data);
       console.log('activity is' + data);
@@ -15,12 +15,14 @@
 
   app.controller('AnswerController', ['$http', function($http) {
     var questions = this;
-    questions.answers = [];
+    questions.tags = [];
     console.log('calling post');
 
-    $http.get('/questions').success(function(data) {
-      questions.answers = data;
+    $http.get('/api/v1/getQuestions').success(function(data) {
+      questions.title = data.title;
+      questions.body = data.body;
       console.log('data is' + data);
+      console.log('question is' + questions.body);
       console.log('activity is' + data);
     });
   }]);
@@ -32,7 +34,7 @@
       console.log('posting question now');
       console.log($scope.askedQuestion);
       $http({
-        url: 'http://localhost:8000/askQuestion',
+        url: 'http://localhost:8000/api/v1/askQuestion',
         method: "POST",
         data: JSON.stringify($scope.askedQuestion)
       }).success(function(data) {
