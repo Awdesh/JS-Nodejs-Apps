@@ -6,11 +6,8 @@
   border-color: #78FA89;
 }
 
-.jumbotron {
-  /*background-image: url('../bot.jpg');*/
+.questions {
   background-size: cover;
-  /*color: white;*/
-  height: 1150px;
 }
 
 /*combining css rules.*/
@@ -26,9 +23,17 @@ ul.nav{
   font-size: 19px;
 }
 
-.jumbotron h1{
+.questions h1{
   margin-top:0px;
   margin-bottom: 50px;
+}
+
+.previewForm {
+  height: 200px;
+}
+
+.previewBody {
+  height: 100px;
 }
 
 textarea{
@@ -51,10 +56,17 @@ textarea{
   margin-top: 5%;
 }
 
+.questionsList{
+  margin-top: 5%;
+}
+
+.usersList{
+  margin-top: 5%;
+}
+
 .list-group {
   margin-bottom: 30px;
   padding: 0 50px;
-  height : 780px;
 }
 
 .questionPanel{

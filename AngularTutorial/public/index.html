@@ -22,7 +22,7 @@
           <a class="navbar-brand" href="#">ASK & LEARN</a>
         </div>
         <section ng-init="tab=1">
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav nav-pills">
             <li ng-class="{active:tab === 1}">
               <a href ng-click="tab = 1">AskQuestion</a>
             </li>
@@ -65,30 +65,41 @@
       <!-- SHOW DATA FROM INPUTS AS THEY ARE BEING TYPED -->
 
       <br><br><br><br>
-      <p><b><h3>Your question on the website will look like below-: </h3></b></p>
-<pre>
-  <label>Title-:{{ askedQuestion.title }}</label>
-  <label>Question-:{{ askedQuestion.body }}</label>
-  <label>Tags-:{{ askedQuestion.tags }}</label>
+      <p><b><h3>Question Preview-:  </h3></b></p>
+<pre class="previewForm">
+  <label class="previewTitle">Title-:{{ askedQuestion.title }}</label>
+  <label class="previewBody">Question-:{{ askedQuestion.body }}</label>
+  <label  class="previewTags">Tags-:{{ askedQuestion.tags }}</label>
 </pre>
     </div>
 
-
-    <div class="jumbotron" ng-show="tab===2" ng-controller="AnswerController as answerCtrl">
-    <ul class="list-group">
-      <li class="list-group-item">
-        <div class="answerPanel">
-          <form name="answerForm">
-            <blockquote>
-              <b> Title: {{answerCtrl.questions.title}} </b><br>
-              Text: {{answerCtrl.questions.body}}<br/>
-              <cite>by: {{answerCtrl.questions.tags}}</cite>
-            </blockquote>
-        </form>
-        </div>
-      </li>
-    </ul>
+<div class="questionsList" ng-show="tab===2" ng-init="initFirst()" ng-controller="questionController as questionCtrl">
+    <div class="questions" ng-repeat="question in questionCtrl.questions">
+      <ul class="list-group">
+        <li class="list-group-item">
+              <blockquote>
+                <b > Title: {{question.title}} </b><br>
+                Text: {{question.body}}<br/>
+                <cite>by: {{question.tags}}</cite>
+              </blockquote>
+        </li>
+      </ul>
+    </div>
 </div>
-  </body>
+
+<div class="usersList" ng-show="tab===3" ng-controller="userController as userCtrl">
+<div class="users" ng-repeat="user in userCtrl.users">
+  <ul class="list-group">
+    <li class="list-group-item">
+          <blockquote>
+            <b> Title: {{user.name}} </b><br>
+            Text: {{user.role}}<br/>
+            <cite>by: {{user.points}}</cite>
+          </blockquote>
+    </li>
+  </ul>
+</div>
+</div>
+</body>
 
 </html>
