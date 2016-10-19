@@ -20,20 +20,6 @@
   var app = angular.module('question', []);
   app.controller('DataController', function() {});
 
-
-  app.controller('answerController', ['$http', '$scope', function($http, $scope) {
-    var questionsCollection = this;
-    questionsCollection.questions = [];
-    console.log('calling get');
-
-    $http.get('/api/v1/getQuestions').success(function(data) {
-      questionsCollection.questions = data;
-      console.log('data is' + data);
-      // console.log('question is' + data[0].body);
-      console.log('activity is' + data);
-    });
-  }]);
-
   app.controller('userController', function() {
     console.log('Inside users');
     this.users = userList;
@@ -53,6 +39,7 @@
         console.log(data);
       });
       $scope.initFirst();
+      $scope.askedQuestion = {};
     };
 
     $scope.initFirst = function() {

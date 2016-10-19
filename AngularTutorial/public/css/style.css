@@ -30,6 +30,7 @@ ul.nav{
 
 .previewForm {
   height: 200px;
+  width: 1000px;
 }
 
 .previewBody {
@@ -54,10 +55,25 @@ textarea{
 
 .question-form{
   margin-top: 5%;
+  /*width: 400px;*/
+  float: left;
 }
 
 .questionsList{
   margin-top: 5%;
+}
+
+.recentQuestionsList h3 {
+  color: red;
+  float: right;
+  margin-top: -60%;
+  margin-right: -25%;
+}
+
+.recent-list-group-item {
+  float: right;
+  margin-top: -60%;
+  margin-right: -15%;
 }
 
 .usersList{

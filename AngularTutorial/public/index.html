@@ -57,20 +57,32 @@
           <input type="text" name="questionPanelonTags" class="form-control" placeholder="at least one tag." ng-model="askedQuestion.tags" required>
            <span class="help-block" ng-show="errorName2">{{ errorName2 }}</span>
         </div>
-
         <!-- SUBMIT BUTTON -->
-         <button type="submit" class="btn btn-success btn-lg btn-block">AskQuestion</button>
+         <button type="submit" class="btn btn-success btn-lg btn-block">Post</button>
+
       </form>
 
       <!-- SHOW DATA FROM INPUTS AS THEY ARE BEING TYPED -->
 
-      <br><br><br><br>
+      <br>
       <p><b><h3>Question Preview-:  </h3></b></p>
 <pre class="previewForm">
   <label class="previewTitle">Title-:{{ askedQuestion.title }}</label>
   <label class="previewBody">Question-:{{ askedQuestion.body }}</label>
   <label  class="previewTags">Tags-:{{ askedQuestion.tags }}</label>
 </pre>
+
+<div class="recentQuestionsList" ng-show="tab===1" ng-init="initFirst()" ng-controller="questionController as questionCtrl">
+  <p><b><h3><u>Recent Questions-: </u> </h3></b></p><br>
+    <div class="recentQuestions" ng-repeat="question in questionCtrl.questions">
+      <ul class="recent-list-group">
+        <li class="recent-list-group-item">
+                <b> Question: {{question.title}} </b><br>
+        </li>
+      </ul>
+    </div>
+</div>
+
     </div>
 
 <div class="questionsList" ng-show="tab===2" ng-init="initFirst()" ng-controller="questionController as questionCtrl">
